@@ -17,3 +17,5 @@ jobs:
     steps:
       - name: Colcon Test
         uses: TRAPS-RoboCup/traps-github-action/ros2-add-tag@main
+        with:
+          token: ${{ secrets.PAT }}

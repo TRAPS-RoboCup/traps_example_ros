@@ -17,7 +17,7 @@ limitations under the License. -->
 
 <package format="3">
   <name>traps_example_ros</name>
-  <version>0.0.9</version>
+  <version>0.0.0</version>
   <description>TRAPSで使用するROS2のツール類</description>
   <maintainer email="traps.robocup@gmail.com">TRAPS</maintainer>
   <license>Apache-2.0</license>
