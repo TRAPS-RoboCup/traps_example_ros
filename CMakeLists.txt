@@ -58,16 +58,13 @@ list(LENGTH ${PROJECT_NAME}_lib_files ${PROJECT_NAME}_lib_files_count)
 if(${PROJECT_NAME}_lib_files_count GREATER 0)
   ament_auto_add_library("${PROJECT_NAME}_lib" SHARED "${${PROJECT_NAME}_lib_files}")
   target_compile_features("${PROJECT_NAME}_lib" PUBLIC c_std_99 cxx_std_17)
-  target_link_libraries("${PROJECT_NAME}_lib" "${cpp_typesupport_target}")
+  target_link_libraries("${PROJECT_NAME}_lib" "${cpp_typesupport_target}" fmt)
 endif()
 
 # ノードプラグインの設定
-set(node_plugins example)
-foreach(node_plugin IN LISTS node_plugins)
-  rclcpp_components_register_node("${PROJECT_NAME}_lib"
-    PLUGIN "${PROJECT_NAME}::${node_plugin}::Node"
-    EXECUTABLE ${node_plugin}_node)
-endforeach()
+rclcpp_components_register_node("${PROJECT_NAME}_lib"
+  PLUGIN "${PROJECT_NAME}::ExampleNode"
+  EXECUTABLE ${node_plugin}_node)
 
 # ディレクトリのinstall
 set(install_directories config;launch;${${PROJECT_NAME_UPPER}_INSTALL_DIRECTORIES})
@@ -83,6 +80,15 @@ endforeach()
 if(BUILD_TESTING)
   ament_auto_find_test_dependencies()
   ament_lint_auto_find_test_dependencies()
+  file(GLOB_RECURSE "${PROJECT_NAME}_test_src_files"
+    LIST_DIRECTORIES false
+    RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+    "test/*.cpp")
+  ament_auto_add_gtest(${PROJECT_NAME}_test
+    "${${PROJECT_NAME}_test_src_files}"
+    TIMEOUT "30")
+  target_compile_features("${PROJECT_NAME}_test" PUBLIC c_std_99 cxx_std_17)
+  target_link_libraries("${PROJECT_NAME}_test" "${cpp_typesupport_target}" fmt)
 endif()
 
 # パッケージング

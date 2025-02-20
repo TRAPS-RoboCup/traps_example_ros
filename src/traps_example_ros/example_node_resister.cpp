@@ -12,15 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "traps_example_ros/example.hpp"
+#include "rclcpp_components/register_node_macro.hpp"
+#include "traps_example_ros/example_node.hpp"
 
-namespace traps_example_ros
-{
-
-traps_example_ros::msg::ExampleString Example::example_string_msg_from_ptr(
-  traps_example_ros::msg::ExampleString::ConstSharedPtr example_string_msg)
-{
-  return *example_string_msg;
-}
-
-}  // namespace traps_example_ros
+RCLCPP_COMPONENTS_REGISTER_NODE(traps_example_ros::ExampleNode)
