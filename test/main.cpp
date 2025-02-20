@@ -1,4 +1,4 @@
-// Copyright 2024 TRAPS
+// Copyright 2025 TRAPS
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,21 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef TRAPS_EXAMPLE_ROS__STATIC_QOS_HPP_
-#define TRAPS_EXAMPLE_ROS__STATIC_QOS_HPP_
+#include "gtest/gtest.h"
+#include "rclcpp/utilities.hpp"
 
-#include "rclcpp/qos.hpp"
-
-namespace traps_example_ros
+int main(int argc, char ** argv)
 {
-
-namespace
-{
-
-auto static_qos() {return rclcpp::QoS(1).reliable().transient_local();}
-
-}  // namespace
-
-}  // namespace traps_example_ros
-
-#endif  // TRAPS_EXAMPLE_ROS__STATIC_QOS_HPP_
+  testing::InitGoogleTest(&argc, argv);
+  rclcpp::init(argc, argv);
+  auto result = RUN_ALL_TESTS();
+  rclcpp::shutdown();
+  return result;
+}
